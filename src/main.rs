@@ -42,6 +42,10 @@ pub struct BatteryPalWinTray {
     #[nwg_control(parent: window, interval: Duration::from_millis(1000*30), active: true)]
     #[nwg_events(OnTimerTick: [BatteryPalWinTray::update_icon])]
     refresh_timer: nwg::AnimationTimer,
+
+    #[nwg_control(parent: window, interval: Duration::from_millis(100), max_tick: Some(1), active: true)]
+    #[nwg_events(OnTimerTick: [BatteryPalWinTray::update_icon])]
+    launch_timer: nwg::AnimationTimer,
 }
 
 impl BatteryPalWinTray {
