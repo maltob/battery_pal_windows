@@ -39,7 +39,7 @@ pub struct BatteryPalWinTray {
     #[nwg_events(OnMenuItemSelected: [BatteryPalWinTray::exit])]
     tray_exit: nwg::MenuItem,
 
-    #[nwg_control(parent: window, interval: Duration::from_millis(1000*2), active: true)]
+    #[nwg_control(parent: window, interval: Duration::from_millis(1000*30), active: true)]
     #[nwg_events(OnTimerTick: [BatteryPalWinTray::update_icon])]
     refresh_timer: nwg::AnimationTimer,
 }
