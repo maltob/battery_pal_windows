@@ -4,6 +4,7 @@ Battery Pal is a windows program to show your battery status with colors and a f
 
 This is primarily a learning excercise for me with using [Native Windows GUI](https://github.com/gabdube/native-windows-gui) and [Windows-RS](https://github.com/microsoft/windows-rs).
 
+![Notification Area icon for Battery Pal at 71% battery](resources/battery_buddy_screenshot.png?raw=true)
 
 ## Usage
 Run the program
@@ -14,7 +15,7 @@ On a machine with a battery it will select the icon based on battery left over.
 | Yellow | 20 - 59 |
 | Red | 0 - 20 |
 
-On a machine without a battery it just cycles through the icons every 2 seconds.
+On a machine without a battery it just cycles through the icons every 30 seconds.
 
 You can exit by clicking (right or left) and selecting exit.
 
