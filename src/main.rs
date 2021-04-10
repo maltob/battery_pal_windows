@@ -60,7 +60,8 @@ impl BatteryPalWinTray {
     }
 
     fn update_icon(&self) {
-        //We don't have a battery, just cycle through icons
+        // Show the correct icon for the battery
+        // If we don't have a battery, just cycle through icons
         if BatteryInfo::battery_present() {
             self.update_battery_status(BatteryInfo::battery_percentage());
         }else{
@@ -72,7 +73,7 @@ impl BatteryPalWinTray {
     fn update_battery_status(&self, percent:i32) {
         match percent {
             60..=100 => self.tray.set_icon(&self.icon_high),
-            40..=59 => self.tray.set_icon(&self.icon_mid),
+            20..=59 => self.tray.set_icon(&self.icon_mid),
             _ => self.tray.set_icon(&self.icon_low),
         }
 

@@ -11,8 +11,8 @@ On a machine with a battery it will select the icon based on battery left over.
 | State | Percent Battery|
 |:--- | :---: |
 | Green | 60 - 100
-| Yellow | 40 - 60 |
-| Red | 0 - 40 |
+| Yellow | 20 - 59 |
+| Red | 0 - 20 |
 
 On a machine without a battery it just cycles through the icons every 2 seconds.
 
