@@ -21,7 +21,16 @@ impl BatteryInfo {
         if BatteryInfo::battery_present() {
                 let full_charge = report.FullChargeCapacityInMilliwattHours().expect("Could not find full charge capacity!").GetInt32().expect("Could not find full charge capacity as Int32!");
                 let current_charge = report.RemainingCapacityInMilliwattHours().expect("Could not find current charge capacity!").GetInt32().expect("Could not find current charge capacity as Int32!");
-                charge = ((current_charge as f32/full_charge as f32)*100.0).round() as i32;
+                
+                // Don't run into divide by 0 errors
+                if full_charge > 0 {
+                    charge = ((current_charge as f32/full_charge as f32)*100.0).round() as i32;
+                }
+                
+                //Don't allow charges over 100 to be reported - I am not sure if this is possible but just to be sure
+                if charge > 100 {
+                    charge = 100;
+                }
         }
         charge  
     }
