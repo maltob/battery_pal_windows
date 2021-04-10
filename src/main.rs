@@ -8,6 +8,9 @@ use rand::thread_rng;
 use rand::seq::SliceRandom;
 use std::time::Duration;
 
+mod battery_info;
+use battery_info::BatteryInfo;
+
 #[derive(Default, NwgUi)]
 pub struct BatteryPalWinTray {
     #[nwg_control]
@@ -34,7 +37,7 @@ pub struct BatteryPalWinTray {
 
     #[nwg_control(parent: tray_menu, text: "Exit")]
     #[nwg_events(OnMenuItemSelected: [BatteryPalWinTray::exit])]
-    tray_item3: nwg::MenuItem,
+    tray_exit: nwg::MenuItem,
 
     #[nwg_control(parent: window, interval: Duration::from_millis(1000*2), active: true)]
     #[nwg_events(OnTimerTick: [BatteryPalWinTray::update_icon])]
@@ -54,7 +57,22 @@ impl BatteryPalWinTray {
 
     fn update_icon(&self) {
         //We don't have a battery, just cycle through icons
-       self.select_random_icon();
+        if BatteryInfo::battery_present() {
+            self.update_battery_status(BatteryInfo::battery_percentage());
+        }else{
+            self.select_random_icon();
+        }
+       
+    }
+
+    fn update_battery_status(&self, percent:i32) {
+        match percent {
+            60..=100 => self.tray.set_icon(&self.icon_high),
+            40..=59 => self.tray.set_icon(&self.icon_mid),
+            _ => self.tray.set_icon(&self.icon_low),
+        }
+
+        self.tray.set_tip(&(format!("You are at {}% battery", percent)));
     }
 
     fn select_random_icon(&self) {
@@ -72,7 +90,7 @@ impl BatteryPalWinTray {
 }
 
 fn main()  {
-    nwg::init().expect("Failed to init Native Windows GUI");
-    let _ui = BatteryPalWinTray::build_ui(Default::default()).expect("Failed to build UI");
+    nwg::init().expect("Failed to start the Windows GUI");
+    let _ui = BatteryPalWinTray::build_ui(Default::default()).expect("GUI build failure");
     nwg::dispatch_thread_events();
 }
