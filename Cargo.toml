@@ -11,3 +11,13 @@ native-windows-gui = "1.0.11"
 native-windows-derive = "1.0.3"
 rand = "*"
 bindings = { path = "bindings" }
+
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1.11"
+
+[package.metadata.winres]
+OriginalFilename = "battery_pal_win.exe"
+FileDescription = "🔋 Pal - A program to show your battery"
+LegalCopyright = "Copyright © 2021"
+ProductName = "Battery Pal"
+CompanyName = "Michael Altobelli"
